@@ -1,0 +1,44 @@
+package hust.soict.hedspi.aims;
+import hust.soict.hedspi.aims.order.*;
+import hust.soict.hedspi.aims.media.*;
+
+import java.util.Scanner;
+
+public class Aims {
+		
+    public static void main(String[] args) {
+        Order myOrder = null;
+        int select;
+        Scanner sc = new Scanner(System.in);
+        do {
+            System.out.println("Order Management Application: ");
+            System.out.println("--------------------------------");
+            System.out.println("1. Create new order");
+            System.out.println("2. Add item to the order");
+            System.out.println("3. Delete item by id");
+            System.out.println("4. Display the items list of order");
+            System.out.println("0. Exit");
+            System.out.println("--------------------------------");
+            System.out.println("Please choose a number: 0-1-2-3-4");
+            select = sc.nextInt();
+
+            switch (select) {
+                case 1:
+                    myOrder = new Order();
+                    System.out.println("Created successfully!");
+                    break;
+                case 2:
+                	myOrder.addMedia();
+                    break;
+                case 3:
+                    break;
+                case 4:
+                    break;
+                default:
+                    break;
+            }
+            System.out.println("");
+        } while(select != 0);
+    }
+}
+

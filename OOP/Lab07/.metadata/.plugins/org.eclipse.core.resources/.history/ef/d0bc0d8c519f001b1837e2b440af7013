@@ -1,0 +1,135 @@
+package hust.soict.hedspi.aims.media;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class CompactDisc extends Disc implements Playable {
+	private String artist;
+	private static ArrayList<Track> tracks = new ArrayList<Track>();
+	
+	public CompactDisc() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public CompactDisc(String artist, int length, String director, String title, String category, float cost) {
+		super(length, director, title, category, cost);
+		this.artist = artist;
+		// TODO Auto-generated constructor stub
+	}
+	
+	public String getArtist() {
+		return artist;
+	}
+	
+	public void addTrack(Track track) {
+		if(tracks.contains(track)) {
+			System.out.println("Track exists!");
+		} else {
+			tracks.add(track);
+			System.out.println("Success!");
+		}
+	}
+	
+//	public void addTrack(Track track) {
+//		for (var t : tracks) {
+//			if(t.equals(track)) {
+//				System.out.println("Track exists!");
+//				return;
+//			}
+//		}
+//		tracks.add(track);
+//		System.out.println("Success!");
+//	}
+	
+	public void removeTrack(Track track) {
+		if(tracks.contains(track)) {
+			tracks.remove(track);
+			System.out.println("Delete successfully!");
+		} else {
+			System.out.println("Track not exists");
+		}
+	}
+	
+	public int getLength() {
+		int len = 0;
+		for (var t : tracks) {
+			 len += t.getLength(); 
+		}
+		return len;
+	}
+	
+	public static CompactDisc getCD() {
+		Scanner keyboard = new Scanner(System.in);
+		String temp;
+		String titleCD, directorCD, categoryCD, artistCD;
+		int lengthCD = 0;
+		float costCD = 0;
+		
+		System.out.println("Enter CD'title : ");
+		titleCD = keyboard.nextLine();
+		System.out.println("Enter CD'category : ");
+		categoryCD = keyboard.nextLine();
+		System.out.println("Enter CD'director : ");
+		directorCD = keyboard.nextLine();
+		System.out.println("Enter CD'artist : ");
+		artistCD = keyboard.nextLine();
+		System.out.println("Enter CD'length : ");	
+		temp = keyboard.nextLine();
+		try {
+			if(!temp.isEmpty()) {
+				lengthCD = Integer.parseInt(temp);
+			}
+			if (lengthCD < 0) {
+				lengthCD = 0;
+			}
+		} catch (Exception e) {
+			System.out.println("Integer, please!");
+		}
+		System.out.println("Enter CD'price : ");
+		temp = keyboard.nextLine();
+		try {
+			
+			if(!temp.isEmpty()) {
+				costCD = Float.parseFloat(temp);
+			}
+			if (costCD < 0) {
+				costCD = 0;
+			}
+		} catch (Exception e) {
+			System.out.println("Float, please!");
+		}
+		
+		CompactDisc CD = new CompactDisc(artistCD, lengthCD, directorCD, titleCD, categoryCD, costCD);
+		//add
+			
+		System.out.println("Do you want to add CD (y/s) :");
+		temp = keyboard.nextLine();
+		if(temp.equals("y")) {
+			tracks.add(CD);
+		}
+		
+		//play		
+		System.out.println("Do you want to play CD (y/s) :");
+		temp = keyboard.nextLine();
+		if(temp.equals("y")) {
+			CD.play();
+			
+		}		
+	return CD;
+	}
+			
+	@Override
+	public void play() {
+		System.out.println("Tittle: " + this.getTitle());
+		System.out.println("Artist: " + this.getArtist());
+		System.out.println("Length: " + this.getLength());
+		if(tracks.isEmpty()) {
+			System.out.println("tracks run out!");
+		} else {
+			for ( var i : tracks) {
+				i.play();
+			}
+		}
+	}
+}

@@ -1,0 +1,36 @@
+Compare the preg_match() function with ereg() funtion;preg_replace() function withereg_replace() function.
+
++ preg_match() function with ereg() funtion
+-Giống : dùng để kiểm tra, so khớp và lấy kết quả của việc so sánh chuỗi dựa vào biểu thức chính quy Regular Expression, 
+-Khác : 
+preg_match ( $pattern , $subject, &$matches)
+Trong đó:
+$pattern là biểu thức Regular Expression
+$subject là chuỗi cần kiểm tra
+$matches là kết quả trả về, đây là một tham số truyền vào ở dạng tham chiếu. // ít dùng
+vd: (preg_match('/boat|plane/', $description))
+
+int ereg ( string $pattern , string $str, array &$arr );
+Trong đó:
+$pattern là biểu thức Regular Expression
+$str là chuỗi cần kiểm tra
+&$arr là một tham số đầu vào tùy chọn chứa một mảng tất cả các biểu thức đã so khớp được nhóm bằng dấu ngoặc đơn trong biểu thức chính quy. //ít dùng
+vd: (ereg('boat|plane', $description))
+
++preg_replace() function withereg_replace() function.
+-Giống : dùng để replace một chuỗi nào đó khớp với đoạn Regular Expression truyền vào.
+-Khác : 
+preg_replace ( $pattern, $replacement, $subject)
+Trong đó:
+$partern: là chuỗi Regular Expression
+$replacement: là chuỗi replace thành
+$subject: là string muốn duyệt và replace
+Kết quả trả về của hàm preg_replace là chuỗi đã được replace.
+vd: preg_replace('/A/','B', $str)
+
+ereg_replace(string $pattern , string $replace_str, string $origin_str )
+Trong đó:
+$pattern là chuỗi Regular Expression
+$replace_str là chuỗi replace
+$origin_str là string muốn thay thế
+vd: ereg_replace('A', 'B', $str );

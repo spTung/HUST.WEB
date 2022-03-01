@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<studentInfo>
+	<id>20184218</id>
+	<name>
+		<firstname>Anh Tuan</firstname>
+		<lastname>Doan</lastname>
+	</name>	
+	<dateofbirth>14/03/2000</dateofbirth>
+	<CPA>2.77</CPA>
+	<class>VN-04</class>
+	<school>DH Bach Khoa HN</school>
+</studentInfo>

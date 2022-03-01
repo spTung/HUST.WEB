@@ -1,0 +1,19 @@
+package hust.soict.hedspi.aims.media;
+
+public class DigitalVideoDisc extends Disc implements Playable {   
+    public DigitalVideoDisc() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+
+	public DigitalVideoDisc(int length, String director, String title, String category, float cost) {
+		super(length, director, title, category, cost);
+		// TODO Auto-generated constructor stub
+	}
+	
+	public void play() {
+		System.out.println("Playing DVD: " + this.getTitle());
+		System.out.println("DVD length: " + this.getLength());
+	}
+}

@@ -1,0 +1,459 @@
+package hust.soict.hedspi.aims;
+
+import hust.soict.hedspi.aims.media.Book;
+import hust.soict.hedspi.aims.media.CompactDisc;
+import hust.soict.hedspi.aims.media.DigitalVideoDisc;
+import hust.soict.hedspi.aims.media.Media;
+import hust.soict.hedspi.aims.media.Track;
+import hust.soict.hedspi.aims.order.Order;
+import java.util.ArrayList;
+import java.util.List;
+import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
+import javax.naming.LimitExceededException;
+
+public class AimsGUII extends Application {
+    private List<Order> orders = new ArrayList<>();
+    private Order currentOrder = null;
+    private Button btnCurrentOrder = null;
+    
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        BorderPane root = new BorderPane();
+        Scene primaryScene = new Scene(root, 800, 600);
+
+        // TOP
+        MenuBar menuBar = new MenuBar();
+        Menu fileMenu = new Menu("File");
+        Menu helpMenu = new Menu("Help");
+        MenuItem exitItem = new MenuItem("Exit");
+        MenuItem aboutItem = new MenuItem("About");
+        
+        fileMenu.getItems().add(exitItem);
+        helpMenu.getItems().add(aboutItem);
+        menuBar.getMenus().addAll(fileMenu, helpMenu);
+        root.setTop(menuBar);
+
+        // LEFT
+        VBox left = new VBox(10);
+        Label lbOrder = new Label("Order");
+        GridPane grid = new GridPane();
+        Button btnAddOrder = new Button("+");
+        TextField tfOrderName = new TextField();
+        
+        left.setAlignment(Pos.TOP_CENTER);
+        left.setPrefSize(180, 600);
+        left.setStyle("-fx-background-color: #ABABAB");
+        lbOrder.setStyle("-fx-font-weight: bold; -fx-text-fill : blue;");
+        grid.setPadding(new Insets(10, 10, 10, 10));
+        grid.setHgap(25);
+        grid.setVgap(15);
+        grid.setPrefSize(180, 600);
+        tfOrderName.setMaxWidth(100);
+        tfOrderName.setPromptText("New Order");
+        
+        left.getChildren().add(lbOrder);
+        left.getChildren().add(new Label("@nhay103"));
+        left.getChildren().add(new Label(""));
+        left.getChildren().add(new Label("- - - - - - - - - -"));
+        left.getChildren().add(new Label(""));
+        left.getChildren().add(grid);
+        grid.add(tfOrderName, 0, 0);
+        grid.add(btnAddOrder, 1, 0);
+        root.setLeft(left);
+
+        // CENTER
+        VBox center = new VBox(10);
+        Label lbOrderName = new Label("Order: ");
+        Button btnAddItem = new Button("New item (+)");
+        GridPane gridCenter = new GridPane();
+
+        center.setAlignment(Pos.TOP_CENTER);
+        lbOrderName.setStyle("-fx-font-weight: bold; -fx-text-fill : green;");
+        gridCenter.setPadding(new Insets(15, 15, 15, 15));
+        gridCenter.setHgap(30);
+        gridCenter.setVgap(15);
+
+        center.getChildren().add(lbOrderName);
+        center.getChildren().add(new Label(""));
+        center.getChildren().add(gridCenter);
+        gridCenter.add(btnAddItem, 0, 0);
+        root.setCenter(center);
+
+        // RIGHT
+        VBox right = new VBox(10);
+        Label lbInfo = new Label("Info");
+        
+        right.setAlignment(Pos.TOP_CENTER);
+        right.setPrefSize(200, 600);
+        right.setStyle("-fx-background-color: #ABABAB");
+        lbInfo.setStyle("-fx-font-weight: bold; -fx-text-fill : blue;");
+        
+        right.getChildren().add(lbInfo);
+        right.getChildren().add(new Label(""));
+        right.getChildren().add(new Label(""));
+        root.setRight(right);
+
+        // Botton
+        root.setBottom(new Label("Nhay103"));
+        
+        /*** Create item scene ***/
+        GridPane inputGrid = new GridPane();
+        Scene inputScene = new Scene(inputGrid, 600, 580);
+        Button btnBack = new Button("Back");
+        Button btnReset = new Button("Reset");
+        Button btnCreate = new Button("Create");
+        Button btnAddTrack = new Button("Add Track"); // CD
+        ObservableList<String> media = FXCollections.observableArrayList("Book", "DVD", "CD");
+        ChoiceBox<String> itemChoiceBox = new ChoiceBox<>(media);
+        // Book, DVD, CD
+        TextField itemID = new TextField();
+        TextField itemTitle = new TextField();
+        TextField itemCategory = new TextField();
+        TextField itemCost = new TextField();
+        TextField bookAuthors = new TextField();
+        TextField discDirector = new TextField();
+        TextField cdArtists = new TextField();
+        TextField dvdLength = new TextField();
+        
+        inputGrid.setPadding(new Insets(10, 10, 10, 10));
+        inputGrid.setHgap(25);
+        inputGrid.setVgap(15);
+        inputGrid.setPrefSize(600, 580);
+        btnBack.setPrefWidth(150);
+        btnReset.setPrefWidth(300);
+        btnCreate.setPrefWidth(150);
+        
+        inputGrid.add(btnBack, 0, 0);
+        inputGrid.add(btnReset, 1, 0);
+        inputGrid.add(btnCreate, 2, 0);
+        inputGrid.add(new Label("Select Media Type: "), 0, 1);
+        inputGrid.add(itemChoiceBox, 1, 1);
+        /*** Create item scene ***/
+
+        /*** Event ***/
+        exitItem.setOnAction(evt -> {
+            System.exit(0);
+        });
+        aboutItem.setOnAction(evt -> {
+            Alert alert = new Alert(AlertType.INFORMATION);
+            alert.setTitle("About Me");
+            alert.setHeaderText("@Nhay103");
+            alert.setContentText("Contact: Phonhay103@gmail.com");
+            alert.setContentText("Contact: Phonhay103@gmail.com\n"
+                                + "Give Me A Coffee:"
+                                + "\n=> ETH: 0xb6D214c1c8BD516748884001aCef98d1eaC31044");
+            alert.show();
+        });
+        btnAddOrder.setOnAction(evt -> {
+            try {
+                if (!tfOrderName.getText().isEmpty()) {
+                    Order newOrder = new Order();
+                    orders.add(newOrder);
+                    if (Order.nbOrders == Order.MAX_LIMITED_ORDERS)
+                        btnAddOrder.setDisable(true);
+                    
+                    grid.getChildren().remove(btnAddOrder);
+                    grid.getChildren().remove(tfOrderName);
+                    
+                    Button btnOrderName = new Button(tfOrderName.getText());
+                    btnOrderName.setPrefWidth(100);
+                    grid.add(btnOrderName, 0, Order.nbOrders-1);
+                    currentOrder = newOrder;
+                    btnCurrentOrder = btnOrderName;
+                    lbOrderName.setText("Order: " + btnCurrentOrder.getText());
+                    
+                    Button btnRemoveOrder = new Button("-");
+                    btnRemoveOrder.setPrefWidth(25);
+                    grid.add(btnRemoveOrder, 1, Order.nbOrders-1);
+
+                    tfOrderName.setText("");
+                    grid.add(tfOrderName, 0, Order.nbOrders);
+                    grid.add(btnAddOrder, 1, Order.nbOrders);
+
+                    btnCurrentOrder.fire();
+                    btnRemoveOrder.setOnAction(evt2 -> {
+                        int rowIndex = GridPane.getRowIndex((Node) evt2.getTarget());
+                        orders.remove(rowIndex);
+                        Order.nbOrders -= 1;
+                        lbOrderName.setText("Order: ");
+                        currentOrder = null;
+                        btnCurrentOrder = null;
+                        btnAddOrder.setDisable(false);
+                        grid.getChildren().removeIf(node -> GridPane.getRowIndex(node) == rowIndex);
+                        gridCenter.getChildren().removeIf(node -> GridPane.getRowIndex(node) >= 1);
+
+                        // shift rows up
+                        int i = rowIndex;
+                        for (Node child : grid.getChildren()) {
+                            int nodeRowIndex = GridPane.getRowIndex(child);
+                            if(nodeRowIndex == (i + 2))
+                                i += 1;
+                            if(nodeRowIndex > i)
+                                GridPane.setRowIndex(child, i);
+                        }
+                    });
+                    btnOrderName.setOnAction((var evt3) -> {
+                        btnCurrentOrder = (Button) evt3.getTarget();
+                        int rowIndex = GridPane.getRowIndex((Node) evt3.getTarget());
+                        lbOrderName.setText("Order: " + btnCurrentOrder.getText());
+                        currentOrder = orders.get(rowIndex);
+
+                        // Remove old
+                        gridCenter.getChildren().removeIf(node -> GridPane.getRowIndex(node) >= 1);
+                        
+                        // Show new
+                        for (int i = 0; i < currentOrder.getItemsOrdered().size(); ++i) {
+                            Button btnItemName = new Button(String.valueOf(currentOrder.getItemsOrdered().get(i).getID())
+                                    + "::" + currentOrder.getItemsOrdered().get(i).getTitle());
+                            Button btnRemoveItem = new Button("-");
+                            
+                            btnItemName.setPrefWidth(300);
+                            btnRemoveItem.setPrefWidth(25);
+                            
+                            gridCenter.add(btnItemName, 0, i+1);
+                            gridCenter.add(btnRemoveItem, 1, i+1);
+                            
+                            btnRemoveItem.setOnAction(eventRemoveItem -> {
+                                int index = GridPane.getRowIndex((Node) eventRemoveItem.getTarget());
+                                String s;
+                                if (index == 1)
+                                    s = ((Button) gridCenter.getChildren().get(1)).getText();
+                                else
+                                    s = ((Button) gridCenter.getChildren().get(2*index-1)).getText();
+                                for (var st : s.split("::")) {
+                                        currentOrder.removeMedia(Integer.parseInt(st));
+                                        break;
+                                }
+                                 btnCurrentOrder.fire();
+                            });
+                            btnItemName.setOnAction(evtShowItem -> {
+                                // Show item info
+                            });
+                        }
+                    });
+                }
+            } catch (LimitExceededException e) {}
+        });
+        btnAddItem.setOnAction(evt -> {
+            if (currentOrder != null) {
+                primaryStage.setScene(inputScene);
+            }
+        });
+        btnBack.setOnAction(evt -> {
+            btnReset.fire();
+            primaryStage.setScene(primaryScene);
+        });
+        btnReset.setOnAction(evt -> {
+            inputGrid.getChildren().removeIf(node -> GridPane.getRowIndex(node) >= 2);
+            itemChoiceBox.setValue("");
+        });
+        btnCreate.setOnAction(evt -> {
+            if (itemChoiceBox.getValue() != null) {
+                Media item = null;
+                switch (itemChoiceBox.getValue()) {
+                    case "Book":
+                        Book book = new Book();
+                        for (int i = 6; i <= 14; i += 2) {
+                            if (((TextField) inputGrid.getChildren().get(i)).getText().isEmpty()) {
+                                book = null;
+                                break;
+                            }
+                        }
+                        if (book != null) {
+                            TextField t = (TextField) inputGrid.getChildren().get(6);
+                            book.setID(Integer.parseInt(t.getText()));
+                            t.setText("");
+                            t = (TextField) inputGrid.getChildren().get(8);
+                            book.setTitle(t.getText());
+                            t.setText("");
+                            t = (TextField) inputGrid.getChildren().get(10);
+                            book.setCategory(t.getText());
+                            t.setText("");
+                            t = (TextField) inputGrid.getChildren().get(12);
+                            book.setCost(Float.parseFloat(t.getText()));
+                            t.setText("");
+                            t = (TextField) inputGrid.getChildren().get(14);
+                            for (var author : t.getText().split(" "))
+                                book.addAuthor(author);
+                            t.setText("");
+                        }
+                        item = book;
+                        break;
+                    case "CD":
+                        CompactDisc cd = new CompactDisc();
+                        for (int i = 6; i < 18; i+=2) {
+                            if (((TextField) inputGrid.getChildren().get(i)).getText().isEmpty()) {
+                                cd = null;
+                                break;
+                            }
+                        }
+                        for (int i = 18; i < inputGrid.getChildren().size(); i+=3) {
+                            if (inputGrid.getChildren().get(i) == btnAddTrack)
+                                break;
+                            if (((TextField) inputGrid.getChildren().get(i)).getText().isEmpty()
+                                    || ((TextField) inputGrid.getChildren().get(i+1)).getText().isEmpty()) {
+                                cd = null;
+                                break;
+                            }
+                        }
+                        if (cd != null) {
+                            TextField t = (TextField) inputGrid.getChildren().get(6);
+                            cd.setID(Integer.parseInt(t.getText()));
+                            t.setText("");
+                            t = (TextField) inputGrid.getChildren().get(8);
+                            cd.setTitle(t.getText());
+                            t.setText("");
+                            t = (TextField) inputGrid.getChildren().get(10);
+                            cd.setCategory(t.getText());
+                            t.setText("");
+                            t = (TextField) inputGrid.getChildren().get(12);
+                            cd.setCost(Float.parseFloat(t.getText()));
+                            t.setText("");
+                            t = (TextField) inputGrid.getChildren().get(14);
+                            cd.setDirector(t.getText());
+                            t.setText("");
+                            t = (TextField) inputGrid.getChildren().get(16);
+                            cd.setArtist(t.getText());
+                            t.setText("");
+                            Track track = new Track();
+                            for (int i = 18; i < inputGrid.getChildren().size(); i+=3) {
+                                if (inputGrid.getChildren().get(i) == btnAddTrack)
+                                    break;
+                                t = (TextField) inputGrid.getChildren().get(i);
+                                track.setTitle(t.getText());
+                                t = (TextField) inputGrid.getChildren().get(i+1);
+                                track.setLength(Integer.parseInt(t.getText()));
+                                cd.addTrack(track);
+                            }
+                        }
+                        item = cd;
+                        break;
+                    case "DVD":
+                        DigitalVideoDisc dvd = new DigitalVideoDisc();
+                        for (int i = 6; i <= 16; i += 2) {
+                            if (((TextField) inputGrid.getChildren().get(i)).getText().isEmpty()) {
+                                dvd = null;
+                                break;
+                            }
+                        }
+                        if (dvd != null) {
+                            TextField t = (TextField) inputGrid.getChildren().get(6);
+                            dvd.setID(Integer.parseInt(t.getText()));
+                            t.setText("");
+                            t = (TextField) inputGrid.getChildren().get(8);
+                            dvd.setTitle(t.getText());
+                            t.setText("");
+                            t = (TextField) inputGrid.getChildren().get(10);
+                            dvd.setCategory(t.getText());
+                            t.setText("");
+                            t = (TextField) inputGrid.getChildren().get(12);
+                            dvd.setCost(Float.parseFloat(t.getText()));
+                            t.setText("");
+                            t = (TextField) inputGrid.getChildren().get(14);
+                            dvd.setLength(Integer.parseInt(t.getText()));
+                            t.setText("");
+                            t = (TextField) inputGrid.getChildren().get(16);
+                            dvd.setDirector(t.getText());
+                            t.setText("");
+                        }
+                        item = dvd;
+                        break;
+                    default:
+                        break;
+                }
+                if (item != null) {
+                    currentOrder.addMedia(item);
+                    btnReset.fire();
+                    primaryStage.setScene(primaryScene);
+                }
+                btnCurrentOrder.fire();
+                System.out.println(currentOrder.getItemsOrdered());
+            }
+        });
+        itemChoiceBox.setOnAction(evt -> {
+            switch (itemChoiceBox.getValue()) {
+                case "Book" -> {
+                    inputGrid.getChildren().removeIf(node -> GridPane.getRowIndex(node) >= 2);
+                    inputGrid.add(new Label("Book ID: "), 0, 2);
+                    inputGrid.add(itemID, 1, 2);
+                    inputGrid.add(new Label("Book Title: "), 0, 3);
+                    inputGrid.add(itemTitle, 1, 3);
+                    inputGrid.add(new Label("Book Category: "), 0, 4);
+                    inputGrid.add(itemCategory, 1, 4);
+                    inputGrid.add(new Label("Book Cost: "), 0, 5);
+                    inputGrid.add(itemCost, 1, 5);
+                    inputGrid.add(new Label("Book Authors: "), 0, 6);
+                    inputGrid.add(bookAuthors, 1, 6);
+                }
+                case "CD" -> {
+                    inputGrid.getChildren().removeIf(node -> GridPane.getRowIndex(node) >= 2);
+                    inputGrid.add(new Label("CD ID: "), 0, 2);
+                    inputGrid.add(itemID, 1, 2);
+                    inputGrid.add(new Label("CD Title: "), 0, 3);
+                    inputGrid.add(itemTitle, 1, 3);
+                    inputGrid.add(new Label("CD Category: "), 0, 4);
+                    inputGrid.add(itemCategory, 1, 4);
+                    inputGrid.add(new Label("CD Cost: "), 0, 5);
+                    inputGrid.add(itemCost, 1, 5);
+                    inputGrid.add(new Label("CD Director: "), 0, 6);
+                    inputGrid.add(discDirector, 1, 6);
+                    inputGrid.add(new Label("CD Artists: "), 0, 7);
+                    inputGrid.add(cdArtists, 1, 7);
+                    inputGrid.add(btnAddTrack, 0, 8);
+                }
+                case "DVD" -> {
+                    inputGrid.getChildren().removeIf(node -> GridPane.getRowIndex(node) >= 2);
+                    inputGrid.add(new Label("DVD ID: "), 0, 2);
+                    inputGrid.add(itemID, 1, 2);
+                    inputGrid.add(new Label("DVD Title: "), 0, 3);
+                    inputGrid.add(itemTitle, 1, 3);
+                    inputGrid.add(new Label("DVD Category: "), 0, 4);
+                    inputGrid.add(itemCategory, 1, 4);
+                    inputGrid.add(new Label("DVD Cost: "), 0, 5);
+                    inputGrid.add(itemCost, 1, 5);
+                    inputGrid.add(new Label("DVD Length: "), 0, 6);
+                    inputGrid.add(dvdLength, 1, 6);
+                    inputGrid.add(new Label("DVD Director: "), 0, 7);
+                    inputGrid.add(discDirector, 1, 7);
+                }
+            }
+        });
+        btnAddTrack.setOnAction(addTrackEvent -> {
+            int index = GridPane.getRowIndex((Node) addTrackEvent.getTarget());
+            inputGrid.getChildren().remove(btnAddTrack);
+            inputGrid.add(new Label("Track"), 0, index);
+            inputGrid.add(new TextField("Title"), 1, index);
+            inputGrid.add(new TextField("0"), 2, index);
+            inputGrid.add(btnAddTrack, 0, index+1);
+        });
+        /*** Event ***/
+
+        primaryStage.setTitle("Aims Project");
+        primaryStage.setScene(primaryScene);
+        primaryStage.setResizable(false);
+        primaryStage.show();
+  }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}

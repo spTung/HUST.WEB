@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.FlowPane?>
+
+
+<FlowPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+   <children>
+      <BorderPane prefHeight="399.0" prefWidth="211.0">
+         <center>
+            <Button mnemonicParsing="false" prefHeight="31.0" prefWidth="116.0" text="1" BorderPane.alignment="CENTER" />
+         </center>
+      </BorderPane>
+   </children>
+</FlowPane>

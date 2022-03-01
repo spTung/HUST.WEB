@@ -1,0 +1,54 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package hust.soict.hedspi.test.media;
+
+
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Iterator;
+import java.util.List;
+
+import hust.soict.hedspi.aims.media.*;
+
+
+public class Test {
+    public static void main(String[] args) {    
+        
+        System.out.println("----------------------------------------------------");
+        Collection<Media> collection1 = new ArrayList<>();
+        CompactDisc cd1 = new CompactDisc(1,"1", "1", "1", "t1", 4.0f);
+        cd1.addTrack(new Track("track 1", 32));
+        cd1.addTrack(new Track("track 2", 12));
+        cd1.addTrack(new Track("track 3", 22));
+        collection1.add(cd1);
+        CompactDisc cd2 = new CompactDisc(2,"t2","2222", "t2", "1", 4.0f);
+        cd2.addTrack(new Track("track 4", 32));
+        cd2.addTrack(new Track("track 5", 32));
+        cd2.addTrack(new Track("track 6", 32));
+        cd2.addTrack(new Track("track 7", 32));
+        cd2.addTrack(new Track("track 13", 32));
+        cd2.addTrack(new Track("track 14", 32));
+        cd2.addTrack(new Track("track 7", 32));
+        collection1.add(cd2);
+        CompactDisc cd3 = new CompactDisc(3,"90", "1",  "t3", "1", 4.0f);
+        cd3.addTrack(new Track("track 7", 32));
+        cd3.addTrack(new Track("track 8", 32));
+        cd3.addTrack(new Track("track 9", 32));
+        cd3.addTrack(new Track("track 10", 32));       
+        cd3.addTrack(new Track("track 11", 32));
+        collection1.add(cd3);
+        Collections.sort((List)collection1);
+        Iterator iterator1 = collection1.iterator();
+        System.out.println("----------------------------------------------------");
+        System.out.println("The DVDs in sorted order are: ");
+        
+        while (iterator1.hasNext()) {
+            System.out.println(((CompactDisc)iterator1.next()).getTitle());
+        }
+        System.out.println("----------------------------------------------------");
+    }
+}

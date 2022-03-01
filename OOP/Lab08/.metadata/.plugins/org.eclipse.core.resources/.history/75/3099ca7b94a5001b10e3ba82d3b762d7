@@ -1,0 +1,12 @@
+package hust.hedspi.test.media;
+
+import hust.soict.hedspi.aims.media.*;
+import java.util.ArrayList;
+
+public class TestMediaCompareTo {
+	public static void main(String[] args) {
+		CompactDisc cd1 = new CompactDisc(1,"test",10,"test1","test11","test111",(float) 1.0);
+		
+	}
+
+}

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Profile</title>
+</head>
+
+<body>
+    <form action="exercise.php" method="POST">
+        <br /><br /> Enter your name:
+        <input type="text" name="name" size="16" maxlength="30" />
+        <br /><br /> Enter your class:
+        <input type="text" name="class" size="16" maxlength="30" />
+        <br /><br /> And your university:
+        <input type="text" name="university" size="16" maxlength="30" />
+        <br /><br /> And final, click to ur hobbies:
+        <ul>
+            <li>
+                <input type="checkbox" name="hobbies[]" id="hobbies1" value="anime">
+                <label for="hobbies1">Anime</label>
+            </li>
+            <li>
+                <input type="checkbox" name="hobbies[]" id="hobbies2" value="manga">
+                <label for="hobbies2">Manga</label>
+            </li>
+            <li>
+                <input type="checkbox" name="hobbies[]" id="hobbies3" value="sports">
+                <label for="hobbies3">Sports</label>
+            </li>
+            <li>
+                <input type="checkbox" name="hobbies[]" id="hobbies4" value="others">
+                <label for="hobbies4">Others</label>
+            </li>
+        </ul>
+        <br /><br />
+        <input type="submit" name="Click To Submit" />
+        <input type="reset" name="Erase and restart" />
+    </form>
+</body>
+
+</html>

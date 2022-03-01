@@ -1,0 +1,66 @@
+package hust.soict.hedspi.aims.media;
+
+import java.util.Scanner;
+
+public class DigitalVideoDisc extends Disc implements Playable {   
+    public DigitalVideoDisc() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public DigitalVideoDisc(int ID, int length, String director, String title, String category, float cost) {
+		super(ID, length, director, title, category, cost);
+		// TODO Auto-generated constructor stub
+	}
+
+	public boolean search(String title) {
+    	String[] split_title = title.split(" "); //tach
+    	for(String t : split_title) {
+    		if(!this.title.contains(t)) // kiem tra neu title khong chua t tra ve false
+    			return  false;
+    	}
+    	return true;
+    }
+	
+	public static DigitalVideoDisc getDVD() {
+		Scanner keyboard = new Scanner(System.in);
+		String temp;
+		int tempID, tempLength;
+		String tempTitle, tempCategory, tempDirector;
+		float tempCost;
+		System.out.println("Enter Id : ");
+		tempID = keyboard.nextInt();
+		System.out.println("Enter CD'title : ");
+		tempTitle = keyboard.nextLine();
+		System.out.println("Enter CD'category : ");
+		tempCategory = keyboard.nextLine();
+		System.out.println("Enter CD'director : ");
+		tempDirector = keyboard.nextLine();
+		System.out.println("Enter CD'artist");
+		tempArtist = keyboard.nextLine();
+		System.out.println("Enter CD'length : ");
+		tempLength = keyboard.nextInt();
+		System.out.println("Enter CD'cost : ");
+		tempCost = keyboard.nextFloat();
+		
+		DigitalVideoDisc newDVD = new DigitalVideoDisc(tempID, tempLength, tempTitle, tempCategory, tempDirector, tempCost);
+		System.out.println("Do you want to play CD(y/n): ");
+        temp = keyboard.nextLine();
+        if(temp.equals("y")) 
+            newDVD.play();
+        
+        return newDVD;
+	}
+	
+	@Override
+	public void print() {
+		System.out.println("DVD : "  + this.getID() + " - " + this.getTitle() + " - " + this.getCategory() + " - " + this.getDirector() +
+						" - " + this.getLength() + " - " + this.getCost());
+	}
+	
+	@Override
+	public void play() {
+		System.out.println("Playing DVD: " + this.getTitle());
+		System.out.println("DVD length: " + this.getLength());
+	}
+}

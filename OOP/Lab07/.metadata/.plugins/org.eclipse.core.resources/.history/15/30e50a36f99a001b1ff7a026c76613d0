@@ -1,0 +1,65 @@
+package hust.soict.hedspi.aims.media;
+
+import java.util.ArrayList;
+
+public class CompactDisc extends Disc implements Playable {
+	private String artist;
+	private ArrayList<Track> tracks = new ArrayList<Track>();
+	
+	public CompactDisc() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public CompactDisc(String artist, int length, String director, String title, String category, float cost) {
+		super(length, director, title, category, cost);
+		this.artist = artist;
+		// TODO Auto-generated constructor stub
+	}
+	public String getArtist() {
+		return artist;
+	}
+	
+	public void addTrack(Track track) {
+		if(tracks.contains(track)) {
+			System.out.println("Track exists!");
+		} else {
+			tracks.add(track);
+			System.out.println("Success!");
+		}
+	}
+	
+//	public void addTrack(Track track) {
+//		for (var t : tracks) {
+//			if(t.equals(track)) {
+//				System.out.println("Track exists!");
+//				return;
+//			}
+//		}
+//		tracks.add(track);
+//		System.out.println("Success!");
+//	}
+	
+	public void removeTrack(Track track) {
+		if(tracks.contains(track)) {
+			tracks.remove(track);
+			System.out.println("Delete successfully!");
+		} else {
+			System.out.println("Track not exists");
+		}
+	}
+	
+	public int getLength() {
+		int len = 0;
+		for (var t : tracks) {
+			 len += t.getLength(); 
+		}
+		return len;
+	}
+			
+	@Override
+	public void play() {
+		System.out.println("Tittle: " + getTitle());
+		System.out.println("Artist: " + getArtist());
+		System.out.println("Length: " + getLength());
+	}
+}

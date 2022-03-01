@@ -1,0 +1,11 @@
+package hust.soict.hedspi.sample;
+
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+public class event {
+	public void createOrder(ActionEvent event) throws IOException {
+		System.out.println("create OK");
+	}
+
+}

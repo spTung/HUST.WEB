@@ -1,0 +1,2 @@
+--module-path "Đường dẫn đến javafx-sdk"
+--add-modules javafx.controls,javafx.fxml

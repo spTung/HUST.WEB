@@ -1,0 +1,116 @@
+package hust.soict.hedspi.aims.utils;
+
+public class DateUtils{
+    // private static int temp;
+    // //print
+    // public static void print_int_earlier(MyDate date1, MyDate date2){
+    //     date1.print_int();
+    //     System.out.print(" earlier than ");
+    //     date2.print_int();
+    // }
+    // public static void print_int_later(MyDate date1, MyDate date2){
+    //     date1.print_int();
+    //     System.out.print(" later than ");
+    //     date2.print_int();
+    // }
+    // public static void print_int_equal(MyDate date1, MyDate date2){
+    //     date1.print_int();
+    //     System.out.print(" equal with ");
+    //     date2.print_int(); 
+    // }
+
+    // //compare
+    // public static void compare(MyDate date1, MyDate date2) {
+        
+    //     if (date1.getYear() < date2.getYear()) {
+    //         print_int_earlier(date1,date2);
+    //         temp = -1;
+    //     }
+    //      else {
+    //         if (date1.getYear() > date2.getYear()) {
+    //             print_int_later(date1,date2);
+    //             temp = 1;
+    //         }
+    //         else {
+    //             if (date1.getMonth() < date2.getMonth()) {
+    //                 print_int_earlier(date1,date2);
+    //                 temp = -1;
+    //             }
+    //             else {
+    //                 if (date1.getMonth() > date2.getMonth()) {
+    //                     print_int_later(date1,date2);
+    //                     temp = 1;
+    //                 }
+    //                 else {
+    //                     if (date1.getDay() < date2.getDay()) {
+    //                         print_int_earlier(date1,date2);
+    //                         temp = -1;
+    //                     }
+    //                     else {
+    //                         if (date1.getDay() > date2.getDay()) {
+    //                             print_int_later(date1,date2);
+    //                             temp = 1;
+    //                         }
+    //                         else {
+    //                             print_int_equal(date1,date2);
+    //                             temp = 0;
+    //                         }
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
+    // public static void sort(MyDate [] dates){
+    //     for(int i = 0; i < dates.length - 1 ; i++)
+    //     {   
+    //         compare(dates[i],dates[i+1]);
+    //         if(temp = 1){
+    //             int temp1 = dates[i];
+    //             dates[i] = 
+    //         }
+    //     }
+    // }
+    public static int compare(MyDate date1, MyDate date2) {
+        // date1 < date2 => -1
+        // date1 = date2 => 0
+        // date1 > date2 => 1
+        if (date1.getYear() < date2.getYear()) return -1;
+        else {
+            if (date1.getYear() > date2.getYear()) return 1;
+            else {
+                if (date1.getMonth() < date2.getMonth()) return -1;
+                else {
+                    if (date1.getMonth() > date2.getMonth()) return 1;
+                    else {
+                        if (date1.getDay() < date2.getDay()) return -1;
+                        else {
+                            if (date1.getDay() > date2.getDay()) return 1;
+                            else {
+                                return 0;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public static void sort(MyDate [] dates){
+        for(int i = 0 ; i < dates.length - 1 ; i++){
+            if(compare(dates[i],dates[i+1]) == 1){
+                MyDate temp = dates[i];
+                dates[i] = dates[i+1];
+                dates[i+1] = temp;
+            }
+        }
+    }
+
+    public static void print_arr(MyDate [] dates){
+        for( int i = 0 ; i < dates.length ; i++)
+        {
+            dates[i].print_int();
+        }
+    }
+
+}

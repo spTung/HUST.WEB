@@ -1,0 +1,43 @@
+package hust.hedspi.test.media;
+
+import hust.soict.hedspi.aims.media.*;
+
+public class TestMediaCompareTo {
+	public static void main(String[] args) {
+		
+		CompactDisc cd1 = new CompactDisc(1,"TuanPeter",10,"Sieu nhan gao","Sieu nhan","Hang phim phuong nam",(float) 1.0);
+		CompactDisc cd2 = new CompactDisc(2,"PeterTuan",20,"Sieu nhan cuong phong","Sieu nhan","Hang phim phuong nam",(float) 2.0);
+		CompactDisc cd3 = new CompactDisc(3,"KillTuanPerter",30,"Sieu nhan sam set","Sieu nhan","Hang phim phuong nam",(float) 3.0);
+		DigitalVideoDisc dvd = new DigitalVideoDisc(4,40,"Sieu nhan nhen","Sieu nhan","Hang phim phuong nam",(float) 4.0);		
+		java.util.Collection collection = new java.util.ArrayList();
+		
+		collection.add(cd1);
+		collection.add(cd2);
+		collection.add(cd3);
+		collection.add(dvd);
+		
+		java.util.Iterator iterator = collection.iterator();
+		System.out.println("---------------------------------");
+		System.out.println("The Media currently in the order are: ");
+		
+		while (iterator.hasNext()) {
+			System.out.println(((Media) iterator.next()).getTitle());
+		}
+		
+		java.util.Collections.sort((java.util.List)collection);
+		
+		iterator = collection.iterator();
+		
+		System.out.println("----------------------------------");
+		System.out.println("Media in sorted order are: ");
+		
+		while(iterator.hasNext()) {
+			System.out.println(((Media)iterator.next()).getTitle());
+		}
+		
+		System.out.println("-----------------------------------");
+		
+		
+	}
+
+}

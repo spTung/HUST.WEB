@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="hust.soict.hedspi.aims.utils.MyDate"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="java.lang.System"/>
+    <fullyQualifiedTypeName name="hust.soict.hedspi.aims.media.Book"/>
+    <fullyQualifiedTypeName name="hust.soict.hedspi.aims.media.Track"/>
+    <fullyQualifiedTypeName name="hust.soict.hedspi.aims.media.Media"/>
+    <fullyQualifiedTypeName name="hust.soict.hedspi.aims.media.CompactDisc"/>
+    <fullyQualifiedTypeName name="hust.soict.hedspi.aims.media.DigitalVideoDisc"/>
+    <fullyQualifiedTypeName name="java.lang.Exception"/>
+</qualifiedTypeNameHistroy>
